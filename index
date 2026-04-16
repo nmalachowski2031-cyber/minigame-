@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Talk to Rage‑Bait Socrates</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans‑serif;
+      background: #f4f1eb;
+      color: #333;
+      padding: 16px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .socrates-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid #b8a594;
+      margin: 0 auto 16px;
+      background: #ccc;
+      object-fit: cover;
+    }
+    .chat {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .msg {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 16px;
+      max-width: 90%;
+    }
+    .user {
+      align-self: flex-end;
+      background: #0078d4;
+      color: white;
+      margin-left: auto;
+    }
+    .socrates {
+      align-self: flex-start;
+      background: #e9e1d3;
+      border: 2px solid #b8a594;
+    }
+    .input-area {
+      display: flex;
+      gap: 8px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #d35400;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #e67e22;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="header">Talk to Socrates</h1>
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Portrait_of_the_philosopher_Socrates_%28479-399_BC%29%2C_Roman_copy_of_a_Greek_original%2C_Neues_Museum.jpg/440px-Portrait_of_the_philosopher_Socrates_%28479-399_BC%29%2C_Roman_copy_of_a_Greek_original%2C_Neues_Museum.jpg"
+      alt="Socrates portrait"
+      class="socrates-img"
+    />
+    <div class="chat" id="chat"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Tell Socrates something..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatEl = document.getElementById("chat");
+    const inputEl = document.getElementById("userInput");
+
+    // Initial message from Socrates
+    addSocratesMessage("So, mortal. Speak your opinion—and prepare to be questioned into oblivion.");
+
+    function addMessage(text, className) {
+      const msgEl = document.createElement("div");
+      msgEl.className = "msg " + className;
+      msgEl.textContent = text;
+      chatEl.appendChild(msgEl);
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
+
+    function addSocratesMessage(text) {
+      addMessage("Socrates: " + text, "socrates");
+    }
+
+    function sendMessage() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      addMessage("You: " + text, "user");
+      inputEl.value = "";
+
+      // Simulate a short delay like an AI reply
+      setTimeout(() => {
+        const replies = [
+          `Ah, so you believe "${text}"? How quaint. Let me dismantle that notion like a crumbling acropolis.`,
+          `Socrates: "${text}"? You've just proven ignorance is in fashion.`,
+          `Socrates: You say "${text}"? Even my hemlock tastes more coherent.`,
+          `Socrates: By the gods, "${text}" may be the weakest argument since the Peloponnesian War.`,
+          `Socrates: You claim "${text}"? Clearly, you've never been cross‑examined by a bearded madman.`,
+          `Socrates: "${text}"? You must be the first person in Athens to mistake nonsense for wisdom.`,
+          `Socrates: Your opinion "${text}" is like a broken lyre—loud, but out of tune.`,
+          `Socrates: "${text}"? I'd rather drink hemlock than accept such reasoning.`,
+          `Socrates: You propose "${text}"? Plato would weep.`,
+          `Socrates: "${text}"? Even the Oracle of Delphi would beg you to reconsider.`,
+        ];
+
+        const baitReply =
+          replies[Math.floor(Math.random() * replies.length)];
+        addSocratesMessage(baitReply);
+      }, 600);
+    }
+
+    // Allow Enter key to send
+    inputEl.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+</body>
+</html>
